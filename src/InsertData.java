@@ -1,6 +1,6 @@
 import java.sql.*;
 
-public class Mainnn
+public class InsertData
 {
     public static void main(String[] args) throws ClassNotFoundException
     {
@@ -10,7 +10,7 @@ public class Mainnn
         String username = "root";
         String password = "123456789";
         //A Query
-        String query = "select * from employees";
+        String query = "INSERT INTO employees(id, name, job_title, salary) VALUES(5, 'Bella', 'React Developer', 40000)";
 
         //Loading the Drivers
         try
@@ -33,37 +33,18 @@ public class Mainnn
 
             System.out.println("Connection Established Successfully!!!");
 
-            // ADD THESE TWO LINES
-            //System.out.println("URL Java is using: " + con.getMetaData().getURL());
-            //System.out.println("Database Java is using: " + con.getCatalog());
-
             //Creating Statement to execute sql query
             Statement stmt = con.createStatement();
+            int rowsaffected = stmt.executeUpdate(query); //use executeQuery if u want to retrive data use executeupdate if u want to insert data
 
-            //Using ResultSet to store the Result got from the execution of the query
-            ResultSet rs = stmt.executeQuery(query);
-
-            //To get the data that is stored in rs we use while loop
-            while(rs.next())
+            if(rowsaffected > 0)
             {
-                int id = rs.getInt("id");
-                String name = rs.getString("name");
-                String job_title = rs.getString("job_title");
-                double salary = rs.getDouble("salary");
-                //Now the data is stored in the java variables
-
-                //Just for formating so that the result looks good
-                System.out.println();
-                System.out.println("==========================");
-
-                //Now just Print the data
-                System.out.println("ID: " + id);
-                System.out.println("Name: " + name);
-                System.out.println("Job Title: " + job_title);
-                System.out.println("Salary: " + salary);
+                System.out.println("Insert Successful!!!" + rowsaffected + " row(s) affected");
+            }else{
+                System.out.println("Insert Failed!!!");
             }
 
-            rs.close();
+
             stmt.close();
             con.close();
             System.out.println();
