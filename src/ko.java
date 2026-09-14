@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.util.Scanner;
 
-public class BatchProcessingg
+public class ko
 {
     public static void main(String[]args) throws ClassNotFoundException, SQLException
     {
@@ -45,13 +45,12 @@ public class BatchProcessingg
 
                 System.out.print("Enter Salary: ");
                 double salary = sc.nextDouble();
-                sc.nextLine();
 
                 pstmt.setString(1,id);
                 pstmt.setString(2,name);
                 pstmt.setString(3,job_title);
                 pstmt.setDouble(4,salary);
-                pstmt.addBatch();
+                pstmt.executeUpdate();
 
                 System.out.println("Add more values Y/N");
                 String decision = sc.nextLine();
@@ -61,7 +60,6 @@ public class BatchProcessingg
                     break;
                 }
             }
-
             int[]  batchResult = pstmt.executeBatch();
             con.commit();
             System.out.println("Batch Process Completed");
